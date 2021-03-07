@@ -1,0 +1,49 @@
+.home{
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.home__info{
+    display: flex;
+    flex: 0.5;
+    flex-direction: column;
+}
+
+.home__info > h1{
+    font-weight: 800;
+    font-size: 50px;
+}
+
+.home__info > p{
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.btn{
+    padding: 12px 26px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: #379683;
+    font-size: 18px;
+    color: #fff;
+    margin-right: 5vw;
+}
+
+.btn:hover{
+    padding-inline-start: 8px 20px;
+    transition: all 0.3s ease-out;
+    background: #3acbf7;
+    color: black;
+    transition: 250ms;
+}
+
+.home__button{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

@@ -1,0 +1,42 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    background: #05386b;
+    color: white;
+}
+
+.navbar_logo > h3{
+    cursor: pointer;
+    color: white;
+}
+
+.navbar__navmenu{
+    display: grid;
+    grid-template-columns: repeat(5,auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    justify-content: end;
+    margin-right: 2rem;
+    width: 70vw;
+}
+
+.navbar__navlinks{
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    color: white;
+}
+.navbar__navlinks:hover{
+    text-decoration: none;
+    background-color: #379683;
+    color: white;
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
+}
+
+.navbar__links{
+    color: white;
+    text-decoration: none;
+}

@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import React, {useState} from 'react'
 import './App.css';
+import Navbar from './components/Navbar/Navbar'
+import Home from './components/Home/Home'
+import Signup from './components/Signup/Signup'
+import Login from './components/Login/Login'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import Logout from './components/Logout';
+import {AuthProvider} from './AuthContext'
+import ProtectedRoute from './ProtectedRoute';
+import Events from './components/Events/Events';
+
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
+            <ProtectedRoute path="/events" exact component={Events}/>
+          </Switch>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
