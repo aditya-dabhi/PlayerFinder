@@ -12,7 +12,6 @@ import Events from './components/Events/Events';
 
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false)
   return (
     <AuthProvider>
       <Router>
