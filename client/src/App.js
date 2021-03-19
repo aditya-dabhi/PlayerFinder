@@ -9,6 +9,7 @@ import Logout from './components/Logout';
 import {AuthProvider} from './AuthContext'
 import ProtectedRoute from './ProtectedRoute';
 import Events from './components/Events/Events';
+import CreateEvent from './components/Events/CreateEvent';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <ProtectedRoute path="/events" exact component={Events}/>
+            <ProtectedRoute path="/create_event" exact component={CreateEvent}/>
           </Switch>
         </div>
       </Router>

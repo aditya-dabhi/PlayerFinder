@@ -18,7 +18,12 @@ const Navbar = () => {
                     <ul className="navbar__navmenu">
                         {auth
                             ? <>
-                                <li className="navbar__navlinks">Event List</li>
+                                <Link to="/create_event" className="navbar__links">
+                                    <li className="navbar__navlinks">Create Event</li>
+                                </Link>
+                                <Link to="/events" className="navbar__links">
+                                    <li className="navbar__navlinks">Event List</li>
+                                </Link>
                                 <Link to="/logout" className="navbar__links">
                                     <li className="navbar__navlinks">Logout</li>
                                 </Link>

@@ -47,6 +47,14 @@ router.post('/create',verify,(req,res)=>{
     if(req.body.description) eventFields.description = req.body.description;
     if(req.body.date) eventFields.date = req.body.date;
     if(req.body.time) eventFields.time = req.body.time;
+    let tempArray = []
+    const newPlayer = {
+        id: req.user._id,
+        name: req.user.name
+    }
+    tempArray.push(newPlayer)
+
+    eventFields.listofplayers = tempArray
 
     Event.findById(eventId)
     .then(event => {
@@ -75,7 +83,7 @@ router.put('/:id/join',verify,(req,res)=>{
         }
         let count = 0;
         for(let i of event.listofplayers){
-            if(i["_id"]===req.user._id){
+            if(i["id"]===req.user._id){
                 return res.status(400).json({error:"You have already joined the event"})
             }
             count++;

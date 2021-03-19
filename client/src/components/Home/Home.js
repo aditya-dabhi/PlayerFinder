@@ -12,9 +12,14 @@ const Home = () => {
                 <p>Pick a day, time, and place to play any sport with someone or group of people.</p>
                 <div className="home__button">
                     <Link to="/signup" className="home__links">
-                        <button className="btn">Register</button>
+                        {auth ? null : <button className="btn">Register</button> }
                     </Link>
-                    {auth ? <button className="btn">See Events</button> : null}
+                    <Link to="/create_event" className="home__links">
+                        {auth ? <button className="btn">Create Event</button> : null}
+                    </Link>
+                    <Link to="/events" className="home__links">
+                        {auth ? <button className="btn">See Events</button> : null}
+                    </Link>
                 </div>
             </div>
             <div className="home__decor">
