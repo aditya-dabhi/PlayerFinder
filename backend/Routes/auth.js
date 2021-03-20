@@ -60,9 +60,10 @@ router.post('/login', async (req,res)=>{
         errors.password = "Password is incorrect"
         return res.status(400).send(errors)
     }
-
-    const token = jwt.sign({_id:user._id,name:user.name}, process.env.TOKEN_SECRET)
-    res.header('auth-token',token).send(token)
+    const tokenID = jwt.sign({_id:user._id,name:user.name}, process.env.TOKEN_SECRET)
+    const token = JSON.stringify({tokenID:tokenID, id:user._id})
+    //const token = jwt.sign({_id:user._id,name:user.name}, process.env.TOKEN_SECRET)
+    res.header('auth-token',tokenID).send(token)
 })
 
 module.exports = router

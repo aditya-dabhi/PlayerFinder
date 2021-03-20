@@ -25,6 +25,7 @@ function App() {
             <Route path="/logout" component={Logout} />
             <ProtectedRoute path="/events" exact component={Events}/>
             <ProtectedRoute path="/create_event" exact component={CreateEvent}/>
+            <ProtectedRoute path="/your_events" exact component={Events}/>
           </Switch>
         </div>
       </Router>

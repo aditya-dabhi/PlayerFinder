@@ -48,8 +48,8 @@ const Login = () => {
             password:password
         })
         .then(response => {
-            console.log(response.data)
-            localStorage.setItem("token",response.data)
+            console.log(response.data.id)
+            localStorage.setItem("token",JSON.stringify(response.data))
             setAuth(true)
             history.push('/')
         })

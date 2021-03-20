@@ -25,11 +25,19 @@ router.get('/events',verify,(req,res)=>{
     .catch(err => res.status(400).json({error:"Error in get request for a particular sport"}))
 })
 
-router.get('/:id',verify,(req,res)=>{
+router.get('/event/:id',verify,(req,res)=>{
     Event.findById(req.params.id)
     .populate('user',['name'])
     .then(event => res.json(event))
     .catch(err => res.status(400).json({error:"Error in get request for particular id"}))
+})
+
+router.get('/user/:user_id',verify,(req,res) => {
+    Event.find({user:req.params.user_id})
+    .sort('-date')
+    .populate('user',['name'])
+    .then(events => res.json(events))
+    .catch(err => res.status(400).json({error:"Error in get request for a particular user events"}))
 })
 
 router.post('/create',verify,(req,res)=>{

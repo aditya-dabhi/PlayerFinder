@@ -21,6 +21,9 @@ const Navbar = () => {
                                 <Link to="/create_event" className="navbar__links">
                                     <li className="navbar__navlinks">Create Event</li>
                                 </Link>
+                                <Link to="/your_events" className="navbar__links">
+                                    <li className="navbar__navlinks">Your Events</li>
+                                </Link>
                                 <Link to="/events" className="navbar__links">
                                     <li className="navbar__navlinks">Event List</li>
                                 </Link>
