@@ -1,10 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import {withRouter} from 'react-router-dom'
 import axios from '../../axios'
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { CardHeader } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow:1,
+      padding: theme.spacing(2)
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  }));
 
 const Events = (props) => {
     const [events, setEvents] = useState([])
     const choice = props.match.path
+    const classes = useStyles();
     useEffect(()=> {
         console.log("#")
         if(choice === "/events") {
@@ -28,9 +50,29 @@ const Events = (props) => {
         .catch(err => console.log(err))
     }
     return (
-        <div>
-            
-            {events.map(event => <h1>{event.typeofsport}</h1>)}
+        <div className={classes.root}>
+            <Grid container spacing={3}>
+                {events.map((event) => (
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h5" component="h2" className={classes.pos}>
+                                    {event.nameofevent}
+                                </Typography>
+                                <Typography color="textSecondary" className={classes.pos}>
+                                    {`Sport : ${event.typeofsport}`}
+                                </Typography>
+                                <Typography color="textSecondary" className={classes.pos}>
+                                    {`Max Players: ${event.numberofplayers}`}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button variant="contained" size="small" color="primary">More Info</Button>
+                            </CardActions>
+                        </Card> 
+                    </Grid>       
+                ))} 
+            </Grid>
         </div>
     )
 }

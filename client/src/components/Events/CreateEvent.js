@@ -62,10 +62,13 @@ const CreateEvent = () => {
             time: time
         },{
             headers: {
-                'auth-token': localStorage.getItem('token')
+                'auth-token': JSON.parse(localStorage.getItem('token')).tokenID
             },
         })
-        .then(response => console.log(response))
+        .then(response => {
+            console.log(response)
+            history.push('your_events')
+        })
         .catch(err => console.log(err))
     }
     return (
