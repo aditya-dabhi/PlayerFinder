@@ -10,6 +10,7 @@ import {AuthProvider} from './AuthContext'
 import ProtectedRoute from './ProtectedRoute';
 import Events from './components/Events/Events';
 import CreateEvent from './components/Events/CreateEvent';
+import EventInfo from './components/Events/EventInfo';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <ProtectedRoute path="/events" exact component={Events}/>
             <ProtectedRoute path="/create_event" exact component={CreateEvent}/>
             <ProtectedRoute path="/your_events" exact component={Events}/>
+            <ProtectedRoute path="/eventinfo/:id" exact component={EventInfo} />
           </Switch>
         </div>
       </Router>
