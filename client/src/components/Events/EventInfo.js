@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, useHistory} from 'react-router-dom'
 import TextField from '@material-ui/core/TextField';
 import axios from '../../axios'
 import Card from '@material-ui/core/Card';
@@ -32,6 +32,7 @@ const EventInfo = props => {
     const [event, setEvent] = useState({})
     const [commentText, setCommentText] = useState('')
     const classes = useStyles()
+    let history = useHistory()
     const eventID = props.match.params.id
     useEffect(()=>{
         const getData = () => {
@@ -59,6 +60,16 @@ const EventInfo = props => {
             }
         })
         .then(res => setEvent(res.data.event))
+        .catch(err => console.log(err))
+    }
+
+    const handleDelete = () => {
+        axios.delete(`api/events/delete/${eventID}`,{
+            headers:{
+                'auth-token': JSON.parse(localStorage.getItem('token')).tokenID   
+            }
+        })
+        .then(res => history.push('/events'))
         .catch(err => console.log(err))
     }
 
@@ -96,7 +107,7 @@ const EventInfo = props => {
                         <CardContent>
                             <div>
                                 {event.user === undefined ? null : JSON.parse(localStorage.getItem('token')).id === event.user._id ? 
-                                    <Button className={classes.button} variant="contained" color="secondary" onClick={handleJoin}>Delete</Button> 
+                                    <Button className={classes.button} variant="contained" color="secondary" onClick={handleDelete}>Delete</Button> 
                                     :
                                     <Button className={classes.button} variant="contained" color="primary" onClick={handleJoin}>Join Now</Button>
                                 }

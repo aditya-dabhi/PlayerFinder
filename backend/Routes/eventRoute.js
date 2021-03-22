@@ -117,7 +117,7 @@ router.put('/:id/join',verify,(req,res)=>{
     .catch(err => res.status(500).json({error:"Error in the put request"}))
 })
 
-router.delete('/:id', verify, (req,res) => {
+router.delete('/delete/:id', verify, (req,res) => {
     Event.findById(req.params.id)
     .then(event => {
         if(event.user.toString() != req.user._id){
