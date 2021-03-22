@@ -136,9 +136,10 @@ router.post('/comment/:id',verify, (req,res) => {
     comment.text = req.body.text
     comment.name = req.user.name
     Event.findById(req.params.id)
+    .populate('user',['name'])
     .then(event => {
         commentList = event.comments
-        commentList.push(comment)
+        commentList.unshift(comment)
         event.comments = commentList
         return event.save()
     })

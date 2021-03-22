@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EventInfo = props => {
     const [event, setEvent] = useState({})
+    const [commentText, setCommentText] = useState('')
     const classes = useStyles()
     const eventID = props.match.params.id
     useEffect(()=>{
@@ -45,6 +46,19 @@ const EventInfo = props => {
             }
         })
         .then(res => setEvent(res.data))
+        .catch(err => console.log(err))
+    }
+
+    const handleComment = e => {
+        e.preventDefault()
+        axios.post(`api/events/comment/${eventID}`,{
+            text: commentText
+        },{
+            headers:{
+                'auth-token': JSON.parse(localStorage.getItem('token')).tokenID
+            }
+        })
+        .then(res => setEvent(res.data.event))
         .catch(err => console.log(err))
     }
 
@@ -100,12 +114,18 @@ const EventInfo = props => {
                         <CardContent>
                             <div>
                                 <h3>Comments</h3>
-                                <form>
-                                    <TextField className={classes.commentBox} label="Add your comment"></TextField>
-                                    <Button style={{marginTop:"15px", marginBottom:"15px"}} variant="contained">Comment</Button>
+                                <form onSubmit={handleComment}>
+                                    <TextField className={classes.commentBox} label="Add your comment" onChange={({target}) => setCommentText(target.value)}></TextField>
+                                    <Button type="submit" style={{marginTop:"15px", marginBottom:"15px"}} variant="contained">Comment</Button>
                                 </form>
                             </div>
-                            <hr />
+                            {event.comments !== undefined ? event.comments.map(comment => (
+                                <div>
+                                    <hr />
+                                    <h5>{comment.name}, {DateFormat(comment.date, "dS mmmm, yyyy, HH:MM")}</h5>
+                                    <h4>{comment.text}</h4>
+                                </div>
+                            )):null}
                         </CardContent>
                     </Card>
                 </Grid>
