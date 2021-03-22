@@ -49,7 +49,6 @@ const Signup = () => {
         .catch(err => {
           setErrors(err.response.data)
         })
-        console.log(`${name}, ${email}, ${password}`)
     }
 
     const handleClick = () => {

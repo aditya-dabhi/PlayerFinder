@@ -12,7 +12,7 @@ const Navbar = () => {
             <nav className="navbar">
                 <div class="navbar__logo">
                     <Link to="/" className="navbar__links">
-                        <h3>Logo</h3>   
+                        <h3>PlayerFinder</h3>   
                     </Link>
                 </div>
                     <ul className="navbar__navmenu">

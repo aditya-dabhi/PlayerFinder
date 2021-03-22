@@ -33,7 +33,6 @@ router.post('/register', async (req,res) => {
         email: req.body.email,
         password: hashPassword
     })
-    console.log(newUser)
     try {
         const savedUser = await newUser.save()
         res.status(201).send({user:newUser._id})
@@ -62,7 +61,6 @@ router.post('/login', async (req,res)=>{
     }
     const tokenID = jwt.sign({_id:user._id,name:user.name}, process.env.TOKEN_SECRET)
     const token = JSON.stringify({tokenID:tokenID, id:user._id})
-    //const token = jwt.sign({_id:user._id,name:user.name}, process.env.TOKEN_SECRET)
     res.header('auth-token',tokenID).send(token)
 })
 

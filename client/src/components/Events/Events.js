@@ -28,7 +28,6 @@ const Events = (props) => {
     const choice = props.match.path
     const classes = useStyles();
     useEffect(()=> {
-        console.log("#")
         if(choice === "/events") {
             const url = "api/events/all"
             getEvents(url)

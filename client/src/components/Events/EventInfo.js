@@ -35,10 +35,7 @@ const EventInfo = props => {
     let history = useHistory()
     const eventID = props.match.params.id
     useEffect(()=>{
-        const getData = () => {
-            getEvent()
-        }
-        getData()
+        getEvent()
     },[])
     const getEvent = () => {
         axios.get(`api/events/event/${eventID}`,{
@@ -74,14 +71,13 @@ const EventInfo = props => {
     }
 
     const handleJoin = () => {
-        //event.preventDefault()
         axios.put(`api/events/${eventID}/join`,{},{
             headers:{
                 'auth-token': JSON.parse(localStorage.getItem('token')).tokenID
             }
         })
         .then(res => setEvent(res.data.event))
-        .catch(err => alert(err))
+        .catch(err => alert(JSON.stringify(err.response.data)))
     }
 
     return(

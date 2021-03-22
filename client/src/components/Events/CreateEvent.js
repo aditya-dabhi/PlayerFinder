@@ -45,13 +45,6 @@ const CreateEvent = () => {
 
     const handleCreate = event => {
         event.preventDefault()
-        console.log('Title',title)
-        console.log('Sport',sport)
-        console.log('PlayerCount',playerCount)
-        console.log('Address',address)
-        console.log('description',description)
-        console.log('Date',date)
-        console.log('Time',time)
         axios.post('api/events/create', {
             nameofevent: title,
             typeofsport: sport,
@@ -65,10 +58,7 @@ const CreateEvent = () => {
                 'auth-token': JSON.parse(localStorage.getItem('token')).tokenID
             },
         })
-        .then(response => {
-            console.log(response)
-            history.push('your_events')
-        })
+        .then(response => history.push('your_events'))
         .catch(err => console.log(err))
     }
     return (

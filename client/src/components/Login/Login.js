@@ -48,7 +48,6 @@ const Login = () => {
             password:password
         })
         .then(response => {
-            console.log(response.data.id)
             localStorage.setItem("token",JSON.stringify(response.data))
             setAuth(true)
             history.push('/')
@@ -56,7 +55,6 @@ const Login = () => {
         .catch((err) => {
             setErrors(err.response.data)
         })
-        console.log(`${email}, ${password}`)
     }
 
     const handleClick = () => {

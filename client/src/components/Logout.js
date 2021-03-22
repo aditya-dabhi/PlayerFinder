@@ -3,7 +3,6 @@ import {useHistory} from 'react-router-dom'
 import {AuthContext} from '../AuthContext'
 
 const Logout = () => {
-    console.log("Hello")
     const [auth,setAuth] = useContext(AuthContext)
     let history = useHistory()
     if(auth){
