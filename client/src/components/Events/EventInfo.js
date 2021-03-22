@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import {withRouter} from 'react-router-dom'
-import {useHistory} from 'react-router-dom'
+import TextField from '@material-ui/core/TextField';
 import axios from '../../axios'
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import DateFormat from 'dateformat'
@@ -20,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
     },
     chip: {
         margin: theme.spacing(1)
+    },
+    button: {
+        marginRight: "5px"
+    },
+    commentBox: {
+        width: "100%"
     }
 }))
 
@@ -27,14 +32,12 @@ const EventInfo = props => {
     const [event, setEvent] = useState({})
     const classes = useStyles()
     const eventID = props.match.params.id
-    let history = useHistory()
-    
     useEffect(()=>{
-        const getData = async() => {
-            await getEvent()
+        const getData = () => {
+            getEvent()
         }
         getData()
-    },[event])
+    },[])
     const getEvent = () => {
         axios.get(`api/events/event/${eventID}`,{
             headers: {
@@ -45,14 +48,14 @@ const EventInfo = props => {
         .catch(err => console.log(err))
     }
 
-    const handleClick = () => {
+    const handleJoin = () => {
         //event.preventDefault()
         axios.put(`api/events/${eventID}/join`,{},{
             headers:{
                 'auth-token': JSON.parse(localStorage.getItem('token')).tokenID
             }
         })
-        .then(res => history.push(`/eventinfo/${eventID}`))
+        .then(res => setEvent(res.data.event))
         .catch(err => alert(err))
     }
 
@@ -78,9 +81,13 @@ const EventInfo = props => {
                     <Card>
                         <CardContent>
                             <div>
-                                <Button variant="contained" color="primary" onClick={handleClick}>Join Now</Button>
+                                {event.user === undefined ? null : JSON.parse(localStorage.getItem('token')).id === event.user._id ? 
+                                    <Button className={classes.button} variant="contained" color="secondary" onClick={handleJoin}>Delete</Button> 
+                                    :
+                                    <Button className={classes.button} variant="contained" color="primary" onClick={handleJoin}>Join Now</Button>
+                                }
                                 <h4 style={{float: "right"}}>{event.numberofplayers - (event.listofplayers !== undefined ? event.listofplayers.length:0)} spots let</h4>
-                                <h2 style={{backgroundColor:"lightcyan"}}>Players Joined</h2>
+                                <h2>Players Joined</h2>
                                 {event.listofplayers !== undefined ? event.listofplayers.map(player => (
                                     <Chip className={classes.chip} label={player.name} />
                                 )): null}
@@ -93,7 +100,12 @@ const EventInfo = props => {
                         <CardContent>
                             <div>
                                 <h3>Comments</h3>
+                                <form>
+                                    <TextField className={classes.commentBox} label="Add your comment"></TextField>
+                                    <Button style={{marginTop:"15px", marginBottom:"15px"}} variant="contained">Comment</Button>
+                                </form>
                             </div>
+                            <hr />
                         </CardContent>
                     </Card>
                 </Grid>

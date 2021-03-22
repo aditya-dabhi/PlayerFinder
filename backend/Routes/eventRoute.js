@@ -128,4 +128,27 @@ router.delete('/:id', verify, (req,res) => {
     .catch(err => res.status(500).json({error:"Error in delete event api"}))
 })
 
+router.post('/comment/:id',verify, (req,res) => {
+    if(!req.body.text) return res.status(400).json({error:"No text available"})
+    let comment = {}
+    let commentList = []
+    comment.user = req.user._id
+    comment.text = req.body.text
+    comment.name = req.user.name
+    Event.findById(req.params.id)
+    .then(event => {
+        commentList = event.comments
+        commentList.push(comment)
+        event.comments = commentList
+        return event.save()
+    })
+    .then(result => {
+        res.status(200).json({
+            msg:"Comment Added",
+            event: result
+        })
+    })
+    .catch(err => res.status(400).json({error:"Error in adding the comment"}))
+})
+
 module.exports = router
